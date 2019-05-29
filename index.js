@@ -1,6 +1,15 @@
 const express = require('express');
 const app = express();
 
+function requireHTTPS(req, res, next) {
+  if (!req.secure !== 'https' && process.env.NODE_ENV !== "development") {
+    return res.redirect('https://' + req.get('host') + req.url);
+  }
+  next();
+}
+
+app.use(requireHTTPS);
+
 app.use('/assets', express.static('public'));
 
 app.get('/',function(req,res) {
@@ -8,8 +17,5 @@ app.get('/',function(req,res) {
 });
 
 const server = app.listen(8080, () => {
-  const host = server.address().address;
-  const port = server.address().port;
-
-  console.log(`Example app listening at http://${host}:${port}`);
+  console.log("Landing Page Runing!!");
 });
