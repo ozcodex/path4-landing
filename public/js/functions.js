@@ -180,26 +180,26 @@
 
     /* ------------------  AJAX CONTACT FORM  ------------------ */
 
-    var contactForm = $(".contactForm"),
-        contactResult = $('.contact-result');
-    contactForm.validate({
-        debug: false,
-        submitHandler: function (contactForm) {
-            $(contactResult, contactForm).html('Please Wait...');
-            $.ajax({
-                type: "POST",
-                url: "subscribe",
-                data: $(contactForm).serialize(),
-                timeout: 20000,
-                success: function (msg) {
-                  $('.subscribe-alert').html('<div class="alert alert-success">' + msg + '</div>').fadeIn(1000);
-                },
-                error: function (msg) {
-                  $('.subscribe-alert').html('<div class="alert alert-danger">' + msg + '</div>').fadeIn(1000);
-                }
-            });
-            return false;
-        }
+    var contactForm = $("#contactForm")
+    contactForm.submit(function(e){
+        e.preventDefault();
+
+        var form = $(this);
+        var data = document.getElementById('email-input').value;
+        var url = form.attr('action');
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: url,
+            data: JSON.stringify({email:data}),
+            timeout: 2000,
+            success: function (msg) {
+              $('.subscribe-alert').html('<div class="alert alert-success">' + msg + '</div>').fadeIn(1000);
+            },
+            error: function (msg) {
+              $('.subscribe-alert').html('<div class="alert alert-danger">' + msg + '</div>').fadeIn(1000);
+            }
+        });
     });
 
 

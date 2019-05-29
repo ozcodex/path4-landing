@@ -8,6 +8,8 @@ if (process.env.NODE_ENV !== "development") {
   app.use(secure);
 }
 
+app.use(express.json())
+
 app.use('/assets', express.static('public'));
 
 app.get('/',function(req,res) {
