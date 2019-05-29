@@ -178,22 +178,6 @@
         }
     }
 
-    /* ------------------  AJAX CAMPAIGN MONITOR  ------------------ */
-
-    $('#campaignmonitor').submit(function (e) {
-        e.preventDefault();
-        $.getJSON(
-            this.action + "?callback=?",
-            $(this).serialize(),
-            function (data) {
-                if (data.Status === 400) {
-                    alert("Error: " + data.Message);
-                } else { // 200
-                    alert("Success: " + data.Message);
-                }
-            });
-    });
-
     /* ------------------  AJAX CONTACT FORM  ------------------ */
 
     var contactForm = $(".contactForm"),
@@ -204,13 +188,15 @@
             $(contactResult, contactForm).html('Please Wait...');
             $.ajax({
                 type: "POST",
-                url: "assets/php/contact.php",
+                url: "subscribe",
                 data: $(contactForm).serialize(),
                 timeout: 20000,
                 success: function (msg) {
-                    $(contactResult, contactForm).html('<div class="alert alert-success" role="alert"><strong>Thank you. We will contact you shortly.</strong></div>').delay(3000).fadeOut(2000);
+                  $('.subscribe-alert').html('<div class="alert alert-success">' + msg + '</div>').fadeIn(1000);
                 },
-                error: $('.thanks').show()
+                error: function (msg) {
+                  $('.subscribe-alert').html('<div class="alert alert-danger">' + msg + '</div>').fadeIn(1000);
+                }
             });
             return false;
         }

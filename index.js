@@ -1,19 +1,22 @@
 const express = require('express');
 const app = express();
+const db = require('./db.js');
+const secure = require('express-force-https');
 
-function requireHTTPS(req, res, next) {
-  if (!req.secure !== 'https' && process.env.NODE_ENV !== "development") {
-    return res.redirect('https://' + req.get('host') + req.url);
-  }
-  next();
+if (process.env.NODE_ENV !== "development") {
+  console.log('using https!');
+  app.use(secure);
 }
-
-app.use(requireHTTPS);
 
 app.use('/assets', express.static('public'));
 
 app.get('/',function(req,res) {
   res.sendFile(__dirname + '/main.html');
+});
+
+app.post('/subscribe', function(req,res){
+  console.log('i recived a post',req.body);
+  res.send('ok');
 });
 
 const server = app.listen(8080, () => {

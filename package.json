@@ -9,6 +9,8 @@
   "author": "Oscar Bernal",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "express-force-https": "^1.0.0",
+    "firebase": "^6.1.0"
   }
 }
