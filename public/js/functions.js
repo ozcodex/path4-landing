@@ -197,7 +197,7 @@
               $('.subscribe-alert').html('<div class="alert alert-success">' + msg + '</div>').fadeIn(1000);
             },
             error: function (msg) {
-              $('.subscribe-alert').html('<div class="alert alert-danger">' + msg + '</div>').fadeIn(1000);
+              $('.subscribe-alert').html('<div class="alert alert-danger">' + msg.responseText + '</div>').fadeIn(1000);
             }
         });
     });
