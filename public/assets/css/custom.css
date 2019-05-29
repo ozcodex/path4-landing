@@ -1,0 +1,8 @@
+.hero {
+    background-position: left bottom;
+}
+
+#cta {
+    background-position: right bottom;
+    background-image: url(../images/background/bg-2.png);
+}
