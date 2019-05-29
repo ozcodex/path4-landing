@@ -17,8 +17,15 @@ app.get('/',function(req,res) {
 });
 
 app.post('/subscribe', function(req,res){
-  console.log('i recived a post',req.body);
-  res.send('ok');
+  db.collection('emails').add({
+    email: req.body.email
+  }).then(ref => {
+    console.log('Added Email with ID: ', ref.id);
+    res.send('Thank you, we will be it touch!');
+  }).catch(e => {
+    console.log('Error writing Email',e)
+    res.status(500).send('There was an error, Please try again later');
+  });
 });
 
 const server = app.listen(8080, () => {
