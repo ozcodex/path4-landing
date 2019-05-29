@@ -1,0 +1,12 @@
+# [START runtime]
+runtime: nodejs 
+env: flex
+
+resources:
+  cpu: 0.5
+  memory_gb: 0.5
+  disk_size_gb: 10
+
+automatic_scaling:
+  max_num_instances: 1
+# [END runtime]
